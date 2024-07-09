@@ -13,8 +13,10 @@ class PageController extends Controller
         // Ottengo la data odierna con carbon
         $today = \Carbon\Carbon::today()->toDateString();
 
-        // Filtro i treni che partono oggi
-        $trains = Train::where('departure_date', $today)->get();
+        // Filtro i treni che partono oggi e ordino per departure_time
+        $trains = Train::where('departure_date', $today)
+            ->orderBy('departure_time')
+            ->get();
 
         return view('home', compact('trains'));
     }
