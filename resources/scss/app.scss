@@ -9,9 +9,18 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: $body-bg-color;
+    background: linear-gradient(90deg, #007660, #e30613);
 }
 
 a {
     text-decoration: none;
+}
+
+.logo {
+    border-radius: 5px 5px 0 0;
+}
+
+.status {
+    height: 15px;
+    vertical-align: baseline;
 }
