@@ -29,3 +29,9 @@ Ogni treno dovrà avere:
 Inserire inizialmente i dati tramite PhpMyAdmin.
 
 Creare un Model relativo ed un Controller per mostrare nella home page tutti i treni che sono in partenza dalla data odierna.
+
+Creare un seeder per popolare la tabella con almeno 50 treni utilizzando Faker.
+
+## Bonus
+
+Utilizzando lo stesso layout, creare una pagina di dettaglio del treno, raggiungibile cliccando sulla card nell'elenco dei treni in partenza.
