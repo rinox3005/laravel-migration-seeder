@@ -15,7 +15,7 @@ class TrainsTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        // array delle maggiorni compagnie italiane
+        // array delle maggiori compagnie italiane
         $companies = ['Italo', 'Trenitalia', 'Frecciarossa', 'Trenord'];
 
         // array delle maggiori cittá italiane con una stazione dei treni
@@ -24,6 +24,17 @@ class TrainsTableSeeder extends Seeder
             'Genova', 'Verona', 'Palermo', 'Bari', 'Catania', 'Padova', 'Pisa',
             'Trieste', 'Brescia', 'Parma', 'Modena', 'Messina'
         ];
+
+        // array delle tipologie di treno
+        $trainType = ['Regional', 'Intercity', 'High-speed'];
+
+        // array delle classi del treno
+        $class = ['Economy', 'Business', 'First Class'];
+
+        // array dei tipi di ticket
+        $ticketType = ['Refundable', 'Non-refundable'];
+
+
         for ($i = 0; $i < 50; $i++) {
             // gestione randomizzazione delle cittá di partenza e arrivo
             $departureStation = $faker->randomElement($cities);
@@ -64,11 +75,11 @@ class TrainsTableSeeder extends Seeder
             $newTrain->is_canceled = $faker->boolean();
             $newTrain->travel_time = $formattedTravelTime;
             $newTrain->ticket_price = $faker->randomFloat(2, 10, 100);
-            $newTrain->train_type = $faker->randomElement(['Regional', 'Intercity', 'High-speed']);
+            $newTrain->train_type = $faker->randomElement($trainType);
             $newTrain->available_seats = $faker->numberBetween(100, 1000);
-            $newTrain->service_class = $faker->randomElement(['Economy', 'Business', 'First Class']);
+            $newTrain->service_class = $faker->randomElement($class);
             $newTrain->conductor_name = $randomName;
-            $newTrain->ticket_type = $faker->randomElement(['Refundable', 'Non-refundable']);
+            $newTrain->ticket_type = $faker->randomElement($ticketType);
             $newTrain->average_speed = $faker->randomFloat(2, 80, 300);
             $newTrain->manufacture_date = $faker->date('Y-m-d', 'now');
             $newTrain->save();

@@ -12,7 +12,7 @@
         <main>
             <section class="container my-5">
                 <h1 class="display-4 fw-bold text-light mb-5 text-center">
-                    Trains Departing Today
+                    Trains Departing From Today
                 </h1>
                 <div class="row g-4 justify-content-center">
                     @foreach ($trains as $train)
