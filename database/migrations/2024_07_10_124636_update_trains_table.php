@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('trains', function (Blueprint $table) {
             $table->float('ticket_price', 5, 2)->default(0)->after('is_canceled');
-            $table->string('travel_time', 10)->default('0h 0min')->after('ticket_price');
+            $table->string('travel_time', 30)->default('0h 0min')->after('ticket_price');
             $table->string('train_type', 50)->default('Regional')->after('travel_time');
             $table->integer('available_seats')->default(0)->after('train_type');
             $table->string('service_class', 20)->default('Economy')->after('available_seats');

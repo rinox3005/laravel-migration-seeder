@@ -25,17 +25,28 @@ class TrainsTableSeeder extends Seeder
             'Trieste', 'Brescia', 'Parma', 'Modena', 'Reggio Emilia', 'Messina'
         ];
 
+        // gestione randomizzazione delle cittá di partenza e arrivo
         $departureStation = $faker->randomElement($cities);
 
         do {
             $arrivalStation = $faker->randomElement($cities);
         } while ($arrivalStation === $departureStation);
 
+        // gestione orari arrivo e partenza
         $departureDateTime = $faker->dateTimeBetween('2024-07-01', '2025-01-01');
         $arrivalDateTime = $faker->dateTimeBetween(
             (clone $departureDateTime)->modify('+2 hours'),
             (clone $departureDateTime)->modify('+1 day')
         );
+
+        // gestione travel time
+        $travelTimeInSeconds = $arrivalDateTime->getTimestamp() - $departureDateTime->getTimestamp();
+        $hours = intdiv($travelTimeInSeconds, 3600);
+        $minutes = ceil(($travelTimeInSeconds % 3600) / 60);
+        $formattedTravelTime = "{$hours}h {$minutes}min";
+
+        // gestione nome e cognome random
+        $randomName = "{$faker->firstName()} {$faker->lastName()}";
 
         $newTrain = new Train();
         $newTrain->train_code = $faker->regexify('[A-Z]{2}[0-9]{3}');
@@ -49,6 +60,15 @@ class TrainsTableSeeder extends Seeder
         $newTrain->carriage_number = $faker->numberBetween(1, 30);
         $newTrain->is_ontime = $faker->boolean();
         $newTrain->is_canceled = $faker->boolean();
+        $newTrain->travel_time = $formattedTravelTime;
+        $newTrain->ticket_price = $faker->randomFloat(2, 10, 100);
+        $newTrain->train_type = $faker->randomElement(['Regional', 'Intercity', 'High-speed']);
+        $newTrain->available_seats = $faker->numberBetween(100, 1000);
+        $newTrain->service_class = $faker->randomElement(['Economy', 'Business', 'First Class']);
+        $newTrain->conductor_name = $randomName;
+        $newTrain->ticket_type = $faker->randomElement(['Refundable', 'Non-refundable']);
+        $newTrain->average_speed = $faker->randomFloat(2, 80, 300);
+        $newTrain->manufacture_date = $faker->date('Y-m-d', 'now');
         $newTrain->save();
     }
 }
