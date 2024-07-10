@@ -18,19 +18,11 @@
                     @foreach ($trains as $train)
                         <div class="col-lg-3 col-md-4 col-sm-6 text-center">
                             <div class="card h-100">
-                                @if ($train["company"] === "Italo")
-                                    <img
-                                        class="logo"
-                                        src="{{ Vite::asset("resources/img/italo.png") }}"
-                                        alt="{{ $train["company"] }}"
-                                    />
-                                @elseif ($train["company"] === "Trenitalia")
-                                    <img
-                                        class="logo"
-                                        src="{{ Vite::asset("resources/img/trenitalia.jpg") }}"
-                                        alt="{{ $train["company"] }}"
-                                    />
-                                @endif
+                                <img
+                                    class="logo"
+                                    src="{{ Vite::asset("resources/img/" . $train["company"] . ".png") }}"
+                                    alt="{{ $train["company"] }}"
+                                />
 
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -59,11 +51,17 @@
                                     <h6>
                                         A: {{ $train["arrival_station"] }} -
                                         {{ \Illuminate\Support\Carbon::parse($train["arrival_date"])->format("d/m/Y") }}
-                                        - {{ $train["arrival_time"] }}
+                                        -
+                                        {{ $train["arrival_time"] }}
                                     </h6>
-                                    <h6>
+                                    {{--
+                                        <h6>
                                         T/C: {{ $train["carriage_number"] }}
-                                    </h6>
+                                        </h6>
+                                    --}}
+                                    <button class="btn btn-danger">
+                                        Details
+                                    </button>
                                 </div>
                             </div>
                         </div>
