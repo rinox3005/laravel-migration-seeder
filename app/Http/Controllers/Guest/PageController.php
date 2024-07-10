@@ -14,7 +14,7 @@ class PageController extends Controller
         $today = \Carbon\Carbon::today()->toDateString();
 
         // Filtro i treni che partono oggi e ordino per departure_time
-        $trains = Train::where('departure_date', $today)
+        $trains = Train::where('departure_date', '>=', $today)
             ->orderBy('departure_time')
             ->get();
 
