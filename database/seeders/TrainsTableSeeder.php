@@ -15,15 +15,33 @@ class TrainsTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
+        $companies = ['Italo', 'Trenitalia', 'Frecciarossa', 'Trenord'];
+
+        $cities = [
+            'Roma', 'Milano', 'Napoli', 'Torino', 'Firenze', 'Venezia', 'Bologna',
+            'Genova', 'Verona', 'Palermo', 'Bari', 'Catania', 'Padova', 'Pisa',
+            'Trieste', 'Brescia', 'Parma', 'Modena', 'Reggio Emilia', 'Messina'
+        ];
+
         $newTrain = new Train();
         $newTrain->train_code = $faker->regexify('[A-Z]{2}[0-9]{3}');
-        $newTrain->company = $faker->company();
-        $newTrain->departure_station = $faker->city();
-        $newTrain->departure_date = $faker->dateTimeBetween('2024-07-10', '2025-01-01')->format('Y-m-d');
-        $newTrain->departure_time = $faker->time();
-        $newTrain->arrival_station = $faker->city();
-        $newTrain->arrival_date = $faker->dateTimeBetween('2024-07-10', '2025-01-01')->format('Y-m-d');
-        $newTrain->arrival_time = $faker->time();
+        $newTrain->company = $faker->randomElement($companies);
+        $newTrain->departure_station = $faker->randomElement($cities);
+
+        $departureDateTime = $faker->dateTimeBetween('2024-07-10', '2025-01-01');
+        $newTrain->departure_date = $departureDateTime->format('Y-m-d');
+        $newTrain->departure_time = $departureDateTime->format('H:i:s');
+
+        do {
+            $newTrain->arrival_station = $faker->randomElement($cities);
+        } while ($newTrain->departure_station === $newTrain->arrival_station);
+
+        $minArrivalDateTime = (clone $departureDateTime)->modify('+2 hours');
+        $maxArrivalDateTime = (clone $departureDateTime)->modify('+1 day');
+        $arrivalDateTime = $faker->dateTimeBetween($minArrivalDateTime, $maxArrivalDateTime);
+        $newTrain->arrival_date = $arrivalDateTime->format('Y-m-d');
+        $newTrain->arrival_time = $arrivalDateTime->format('H:i:s');
+
         $newTrain->carriage_number = $faker->numberBetween(1, 30);
         $newTrain->is_ontime = $faker->boolean();
         $newTrain->is_canceled = $faker->boolean();
