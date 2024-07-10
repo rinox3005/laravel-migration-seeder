@@ -16,7 +16,13 @@
                                 {{ $train["company"] }}
                                 {{ $train["train_code"] }}
 
-                                @if ($train["is_ontime"])
+                                @if ($train["is_canceled"])
+                                    <img
+                                        class="status"
+                                        src="{{ Vite::asset("resources/img/canceled.png") }}"
+                                        alt="canceled"
+                                    />
+                                @elseif ($train["is_ontime"])
                                     <img
                                         class="status"
                                         src="{{ Vite::asset("resources/img/ontime.png") }}"
