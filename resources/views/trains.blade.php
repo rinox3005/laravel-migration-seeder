@@ -41,7 +41,12 @@
                                 -
                                 {{ $train["arrival_time"] }}
                             </h6>
-                            <button class="btn btn-danger mt-2">Details</button>
+                            <a
+                                href="{{ route("train-details", $train->id) }}"
+                                class="btn btn-danger mt-2"
+                            >
+                                Details
+                            </a>
                         </div>
                     </div>
                 </div>

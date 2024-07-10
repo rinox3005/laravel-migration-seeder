@@ -21,4 +21,11 @@ class TrainsController extends Controller
 
         return view('trains', compact('trains'));
     }
+    public function show($id)
+    {
+
+        $train = Train::find($id);
+
+        return view('train-details', compact('train'));
+    }
 }

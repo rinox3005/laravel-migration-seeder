@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/trains">Trains</a>
+                    <a class="nav-link" href="/trains">Train Schedules</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link">About</a>
